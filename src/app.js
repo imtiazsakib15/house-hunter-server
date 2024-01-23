@@ -2,12 +2,15 @@ const express = require("express");
 const applyMiddleware = require("./middlewares");
 const globalErrorHandler = require("./utils/globalErrorHandler");
 const connectDB = require("./db/connectDB");
+const authenticationRoutes = require("./routes/v1/authentication");
 
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 
 applyMiddleware(app);
+
+app.use(authenticationRoutes);
 
 app.get("/health", (req, res) => {
   res.send("House Hunter is running....");
