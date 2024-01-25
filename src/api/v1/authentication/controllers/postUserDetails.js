@@ -1,20 +1,15 @@
-const createToken = require("../../../../lib/authentication/createToken");
 const User = require("../../../../models/authentication/userSchema");
-const bcrypt = require("bcrypt");
 
 const postUser = async (req, res) => {
   try {
-    const { email, password } = new User(req.body);
-    const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ error: "No User Found!" });
+    const { accessToken } = new User(req.body);
+    if (!accessToken) return res.status(401).send({ message: "Unauthorized" });
 
-    if (await bcrypt.compare(password, user.password)) {
-      const accessToken = await createToken(user.email);
-      console.log(accessToken);
-      return res.json({ accessToken });
-    }
-
-    res.status(201).send(result);
+    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+      if (err) return res.status(401).send({ message: "Unauthorized" });
+      // console.log(decoded);
+      return res.status(200).json({ user: decoded });
+    });
   } catch (error) {
     res.status(500).send({ error: "Internal Server Error!" });
   }

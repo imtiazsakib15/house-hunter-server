@@ -8,6 +8,6 @@ router.post("/register", postRegisterUser);
 
 router.post("/login", postLoginUser);
 
-router.post("/login", postUserDetails);
+router.post("/user-details", postUserDetails);
 
 module.exports = router;

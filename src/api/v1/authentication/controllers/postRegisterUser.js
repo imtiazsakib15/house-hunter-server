@@ -1,7 +1,7 @@
 const User = require("../../../../models/authentication/userSchema");
 const bcrypt = require("bcrypt");
 
-const postUser = async (req, res) => {
+const postRegisterUser = async (req, res) => {
   try {
     const { email, password, name, phone, role } = new User(req.body);
     const oldUser = await User.findOne({ email });
@@ -17,4 +17,4 @@ const postUser = async (req, res) => {
   }
 };
 
-module.exports = postUser;
+module.exports = postRegisterUser;

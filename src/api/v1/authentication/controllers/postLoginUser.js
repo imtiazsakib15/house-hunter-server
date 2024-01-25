@@ -2,7 +2,7 @@ const createToken = require("../../../../lib/authentication/createToken");
 const User = require("../../../../models/authentication/userSchema");
 const bcrypt = require("bcrypt");
 
-const postUser = async (req, res) => {
+const postLoginUser = async (req, res) => {
   try {
     const { email, password } = new User(req.body);
     const user = await User.findOne({ email });
@@ -20,4 +20,4 @@ const postUser = async (req, res) => {
   }
 };
 
-module.exports = postUser;
+module.exports = postLoginUser;
